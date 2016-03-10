@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include "tree.h"
 
+static void print_tree_with_indents(tree root, int indent_level);
+
 /*****************************************************************************
  * build_tree
  *****************************************************************************/
@@ -41,7 +43,18 @@ tree build_int_tree(int kind, int val) {
 /******************************************************************************
  * print_tree
  *****************************************************************************/
-void print_tree (tree root, int indent_level) {
+void print_tree(tree root) {
+    print_tree_with_indents(root, 0);
+}
+
+/******************************************************************************
+ * print_tree_with_indents
+ *****************************************************************************
+ * Exists as a separate function so that client code doesn't have to  
+ * specify the indent parameter. This function is private to this file.
+ * Client code should call 'print_tree' which calls this function.
+ */
+static void print_tree_with_indents(tree root, int indent_level) {
 
     int i;
 
@@ -53,7 +66,7 @@ void print_tree (tree root, int indent_level) {
 
     printf("kind: %d\n", root->kind); 
 
-    print_tree(root->first, indent_level + 1);
-    print_tree(root->second, indent_level + 1);
-    print_tree(root->third, indent_level + 1);  
+    print_tree_with_indents(root->first, indent_level + 1);
+    print_tree_with_indents(root->second, indent_level + 1);
+    print_tree_with_indents(root->third, indent_level + 1);  
 }

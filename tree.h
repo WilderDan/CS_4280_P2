@@ -11,4 +11,4 @@ typedef node *tree;
 
 tree build_tree (int kind, tree first, tree second, tree third);
 tree build_int_tree (int kind, int val);
-void print_tree (tree, int indent_level);
+void print_tree (tree);

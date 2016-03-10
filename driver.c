@@ -1,6 +1,15 @@
+/* driver.c
+ *
+ * Dan Wilder
+ * 10 March 2016
+ */
+
 #include <stdlib.h>
 #include "tree.h"
 
+/*****************************************************************************
+ * main
+ ****************************************************************************/
 int main() {
     
     tree t1, t2, t3, t4, t5, root;
@@ -11,7 +20,7 @@ int main() {
     t4 = build_tree(4, t3, NULL, NULL);
     t5 = build_tree(5, NULL, NULL, NULL);
     root = build_tree(0, t4, t5, NULL);
- 
-    print_tree(root, 0);
+
+    print_tree(root);
     return 0;
 }
