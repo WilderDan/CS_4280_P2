@@ -1,0 +1,32 @@
+README
+
+===============================================================
+OVERVIEW
+===============================================================
+Dan Wilder
+10 March 2016
+
+UMSL - CS 4280 - Program Translation - Spring 2016
+Professor Schulte
+
+Project Part 2 
+    http://www.cs.umsl.edu/~schulte/cs4280/pt12-proj.pdf
+
+Version control used: git
+
+===============================================================
+Project Source:
+===============================================================
+README   : Documentation
+Makefile : Build project
+tree.c   : Tree function implementation
+tree.h   : Corresponding header for tree.c
+driver.c : Show tree functions work as expected
+
+===============================================================
+COMMANDS
+===============================================================
+Build executable (ada):                     make
+Remove *.o:                                 make clean
+Same as above plus remove executable:       make realclean 
+Run executable:                             ada
