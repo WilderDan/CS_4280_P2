@@ -13,4 +13,5 @@ int main() {
     root = build_tree(0, t4, t5, NULL);
  
     print_tree(root, 0);
+    return 0;
 }
