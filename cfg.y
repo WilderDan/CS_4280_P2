@@ -1,7 +1,7 @@
 /*    cfg.y
  *
  *    Dan Wilder
- *    10 March 2016
+ *    11 March 2016
  */
 %{
 #include <stdlib.h>
@@ -11,34 +11,7 @@ extern tree root;
 %}
 
 %union { tree p; int i; char * s;}
-/*
-%type <s>  Ident 1 IntConst 2
-%type <s>  Boolean 11 Integer 12 True 13 False 14
-%type <s>  And 21 Array 22 Begin 23 Declare 24 Else 25 Elsif 26 End 27 Exit 28 
-%type <s> For 29 If 30 In 31 Is 32 Loop 33 Mod 34 Not 35 Of 36 Or 37 Procedure 38
-%type <s> Then 39 When 40 While 41 Xor 42
-%type <s> Eq 51 NEq 52 Lt 53 Lte 54 Gt 55 Gte 56 Plus 57 Minus 58 Star 59 Slash 60
-%type <s> LParen 61 RParen 62 LSqBrack 63 RSqBrack 64 Assign 65 DoubleDot 66 
-%type<s> Semicolon 67 Colon 68 Comma 69
-%type<s> Ident IntConst
-%type<s> Boolean Integer True False
-%type<s> And Array Begin Declare Else Elsif End Exit
-%type<s> For If In Is Loop Mod Not Of Or Procedure
-%type<s> Then When While Xor
-%type<s> Eq NEq Lt Lte Gt Gte Plus Minus Star Slash
-%type<s> LParen RParen LSqBrack RSqBrack Assign DoubleDot
-%type<s> Semicolon Colon Comma
 
-/*
-%token  Ident 1 IntConst 2
-%token  Boolean 11 Integer 12 True 13 False 14
-%token  And 21 Array 22 Begin 23 Declare 24 Else 25 Elsif 26 End 27 Exit 28 
-%token  For 29 If 30 In 31 Is 32 Loop 33 Mod 34 Not 35 Of 36 Or 37 Procedure 38
-%token  Then 39 When 40 While 41 Xor 42
-%token  Eq 51 NEq 52 Lt 53 Lte 54 Gt 55 Gte 56 Plus 57 Minus 58 Star 59 Slash 60
-%token  LParen 61 RParen 62 LSqBrack 63 RSqBrack 64 Assign 65 DoubleDot 66 
-%token  Semicolon 67 Colon 68 Comma 69
-*/
 %token<s>  Ident IntConst 
 %token<s>  Boolean Integer True False
 %token<s>  And Array Begin Declare Else Elsif End Exit 
@@ -63,7 +36,7 @@ decls
     : /* empty */
         { $$ = NULL;}
     | declaration Semicolon decls
-        { $$ = build_tree($2, $1, $3, NULL); /*$$->next=$3;*/}
+        { $$ = build_tree($2, $1, $3, NULL);}
     ;
 
 declaration
@@ -75,7 +48,7 @@ id_list
     : Ident 
         { $$ = build_int_tree("Ident", $1);}
     | Ident Comma id_list
-        { $$ = build_tree($2, build_int_tree("Ident", $1), $3, NULL);} /*$$->next=$3;*/
+        { $$ = build_tree($2, build_int_tree("Ident", $1), $3, NULL);}
     ;
 
 type 
@@ -84,7 +57,7 @@ type
     | Boolean
         { $$ = build_int_tree($1, $1);}
     | Array LSqBrack const_range RSqBrack Of type
-        { $$ = build_tree($1, $3, $6, NULL); /*$$->next=$6;*/}
+        { $$ = build_tree($1, $3, $6, NULL);}
     ;
 
 const_range
@@ -96,7 +69,7 @@ stmts
     : /* empty */
         { $$ = NULL;}
     | statement Semicolon stmts
-        { $$ = build_tree($2, $1, $3, NULL);} //$$->next=$3;}
+        { $$ = build_tree($2, $1, $3, NULL);}
     ;
 
 statement
@@ -139,7 +112,7 @@ end_if
     | Else stmts End If
         { $$ = build_tree($1, $2, NULL, NULL);}
     | Elsif bool_expr Then stmts end_if
-        { $$ = build_tree($1, $2, $4, $5);}// $$->next=$5;}
+        { $$ = build_tree($1, $2, $4, $5);}
     ;
 
 expr
@@ -172,7 +145,7 @@ relation
 
 sum
     : sign prod
-        { $$ = build_tree("sign prod", $1, $2, NULL);}
+        { $$ = build_tree("sign-prod", $1, $2, NULL);}
     | sum Plus prod
         { $$ = build_tree($2, $1, $3, NULL);}
     | sum Minus prod

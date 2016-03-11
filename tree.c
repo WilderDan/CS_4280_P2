@@ -1,7 +1,7 @@
 /*    tree.c
  *
  *    Dan Wilder
- *    10 March 2016
+ *    11 March 2016
  */
 
 #include <stdio.h>
@@ -64,13 +64,11 @@ static void print_tree_with_indents(tree root, int indent_level) {
 
     for(i = 0; i < indent_level; ++i)
         printf("    ");
-
+   
     if (strcmp(root->kind, "Ident") == 0 || strcmp(root->kind, "IntConst") == 0)
         printf("%s\n", root->value);
     else
         printf("%s\n", root->kind);
-
-    print_tree_with_indents(root->next, indent_level);
 
     print_tree_with_indents(root->first, indent_level + 1);
     print_tree_with_indents(root->second, indent_level + 1);

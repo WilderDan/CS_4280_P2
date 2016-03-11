@@ -29,13 +29,6 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    /*
-    int tok;
-    while((tok = yylex()) != 0) {
-        printf("%d\t%s\n", tok, yytext);
-    }
-    */
-
     // Magic
     yyparse();
     print_tree(root);
