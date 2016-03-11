@@ -61,10 +61,11 @@ static void print_tree_with_indents(tree root, int indent_level) {
     if (root == NULL)
         return;
 
-    for(i = 0; i < indent_level; ++i) 
+    for(i = 0; i < indent_level; ++i)
         printf("    ");
 
-    printf("kind: %d\n", root->kind); 
+    printf("%d\n", root->kind);
+    print_tree_with_indents(root->next, indent_level);
 
     print_tree_with_indents(root->first, indent_level + 1);
     print_tree_with_indents(root->second, indent_level + 1);

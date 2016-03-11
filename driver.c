@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
 
     // Magic
     yyparse();
+    print_tree(root);
 
     return 0;
 }

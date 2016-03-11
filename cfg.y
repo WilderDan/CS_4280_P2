@@ -10,7 +10,7 @@
 extern tree root;
 %}
 
-%union { tree p; int i; }
+%union { tree p; int i; char * s;}
 
 %token <i> Ident 1 IntConst 2
 %token <i> Boolean 11 Integer 12 True 13 False 14
@@ -29,7 +29,7 @@ extern tree root;
 %%
 program
     : Procedure Ident Is decls Begin stmts End Semicolon
-        {root = build_tree(Procedure, build_int_tree(Ident, $2), $4, $6);}
+        {root = build_tree(Procedure, build_int_tree(Ident, $2), $4, $6); }
     ;
 
 decls
@@ -101,7 +101,7 @@ range
 
 ref
     : Ident
-        {$$ = build_int_tree(Ident, $1); }
+        {$$ = build_int_tree(Ident, $1);}
     | Ident LSqBrack expr RSqBrack
         { $$ = build_tree(Ident, build_int_tree(Ident, $1), $3, NULL);}
     ;

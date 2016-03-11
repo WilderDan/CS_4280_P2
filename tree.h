@@ -4,7 +4,7 @@
  *    10 March 2016
  */
 typedef struct Node {
-        int     kind, value;
+        int kind, value;
         struct  Node *first, *second, *third, *next;
 } node;
 typedef node *tree;
