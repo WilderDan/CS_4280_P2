@@ -4,8 +4,9 @@
  *    10 March 2016
  */
 %{
+#include <stdlib.h>
 #include "tree.h"
-
+#include "lex_yacc.h"
 extern tree root;
 %}
 
@@ -23,12 +24,12 @@ extern tree root;
 %start  program
 
 %type <p> program decls declaration id_list type const_range stmts statement range
-%type ref end_if expr relation sum sign prod factor basic
+%type <p> ref end_if bool_expr expr relation sum sign prod factor basic
 
 %%
 program
     : Procedure Ident Is decls Begin stmts End Semicolon
-        {root = buildTree(Procedure, $2, $4, $6);}
+        {root = build_tree(Procedure, build_int_tree(Ident, $2), $4, $6);}
     ;
 
 decls
@@ -83,6 +84,13 @@ statement
     | Exit When bool_expr
         { }
     | If bool_expr Then stmts end_if
+        { }
+    ;
+
+bool_expr
+    : True
+        { }
+    | False
         { }
     ;
 
@@ -158,7 +166,7 @@ prod
         { }
     | prod Star factor
         { }
-    | prod Slash factpr
+    | prod Slash factor
         { }
     | prod Mod factor
         { }
