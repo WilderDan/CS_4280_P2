@@ -16,7 +16,6 @@ FILE *yyin;
  * main
  ****************************************************************************/
 int main(int argc, char **argv) {
-    int tok; 
 
     // Make sure command line argument was specified    
     if (argc < 2) {
@@ -30,10 +29,8 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    // Scan file
-    while((tok = yylex()) != 0) {
-        printf("%d\t%s\n", tok, yytext);
-    }
+    // Magic
+    yyparse();
 
     return 0;
 }
