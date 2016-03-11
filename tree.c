@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "tree.h"
 
 static void print_tree_with_indents(tree root, int indent_level);
@@ -13,7 +14,7 @@ static void print_tree_with_indents(tree root, int indent_level);
 /*****************************************************************************
  * build_tree
  *****************************************************************************/
-tree build_tree(int kind, tree first, tree second, tree third) {
+tree build_tree(char *kind, tree first, tree second, tree third) {
 
     tree build;
     build = (tree) malloc(sizeof(node));
@@ -29,7 +30,7 @@ tree build_tree(int kind, tree first, tree second, tree third) {
 /******************************************************************************
  * build_int_tree
  *****************************************************************************/
-tree build_int_tree(int kind, int val) {
+tree build_int_tree(char *kind, char *val) {
 
     tree build;
     build = (tree) malloc(sizeof(node));
@@ -64,7 +65,11 @@ static void print_tree_with_indents(tree root, int indent_level) {
     for(i = 0; i < indent_level; ++i)
         printf("    ");
 
-    printf("%d\n", root->kind);
+    if (strcmp(root->kind, "Ident") == 0 || strcmp(root->kind, "IntConst") == 0)
+        printf("%s\n", root->value);
+    else
+        printf("%s\n", root->kind);
+
     print_tree_with_indents(root->next, indent_level);
 
     print_tree_with_indents(root->first, indent_level + 1);
