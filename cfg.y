@@ -10,7 +10,7 @@
 extern tree root;
 %}
 
-%union { tree p; int i; char * s;}
+%union {tree p; char * s;}
 
 %token<s>  Ident IntConst 
 %token<s>  Boolean Integer True False
@@ -24,7 +24,7 @@ extern tree root;
 %start  program
 
 %type <p> program decls declaration id_list type const_range stmts statement range
-%type <p> ref end_if bool_expr expr relation sum sign prod factor basic
+%type <p> ref end_if expr relation sum sign prod factor basic
 
 %%
 program
@@ -36,7 +36,7 @@ decls
     : /* empty */
         { $$ = NULL;}
     | declaration Semicolon decls
-        { $$ = build_tree($2, $1, $3, NULL);}
+        { $$ = build_tree("declarations", $1, $3, NULL);}
     ;
 
 declaration
@@ -81,17 +81,10 @@ statement
         { $$ = build_tree($1, build_int_tree("Ident", $2), $4, $6);}
     | Exit
         { $$ = build_int_tree($1, $1);}
-    | Exit When bool_expr
+    | Exit When expr
         { $$ = build_tree($1, $3, NULL, NULL);}
-    | If bool_expr Then stmts end_if
+    | If expr Then stmts end_if
         { $$ = build_tree($1, $2, $4, $5);}
-    ;
-
-bool_expr
-    : True
-        { build_int_tree($1, $1);}
-    | False
-        { build_int_tree($1, $1);}
     ;
 
 range
@@ -111,7 +104,7 @@ end_if
         { $$ = NULL;}
     | Else stmts End If
         { $$ = build_tree($1, $2, NULL, NULL);}
-    | Elsif bool_expr Then stmts end_if
+    | Elsif expr Then stmts end_if
         { $$ = build_tree($1, $2, $4, $5);}
     ;
 
