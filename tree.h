@@ -3,8 +3,10 @@
  *    Dan Wilder
  *    11 March 2016
  */
+
 typedef struct Node {
         char *kind, *value;
+        int isList;
         struct  Node *first, *second, *third, *next;
 } node;
 typedef node *tree;

@@ -36,7 +36,7 @@ decls
     : /* empty */
         { $$ = NULL;}
     | declaration Semicolon decls
-        { $$ = build_tree("declarations", $1, $3, NULL);}
+        { $$ = build_tree("decls", $1, NULL, NULL); $$->next=$3;}
     ;
 
 declaration
@@ -46,9 +46,9 @@ declaration
 
 id_list
     : Ident 
-        { $$ = build_int_tree("Ident", $1);}
+        { $$ = build_tree("idlist", build_int_tree("Ident", $1), NULL, NULL);}
     | Ident Comma id_list
-        { $$ = build_tree($2, build_int_tree("Ident", $1), $3, NULL);}
+        { $$ = build_tree("idlist", build_int_tree("Ident", $1), NULL, NULL);$$->next=$3;}
     ;
 
 type 
@@ -69,7 +69,7 @@ stmts
     : /* empty */
         { $$ = NULL;}
     | statement Semicolon stmts
-        { $$ = build_tree($2, $1, $3, NULL);}
+        { $$ = build_tree("stmts", $1, NULL, NULL);$$->next=$3;}
     ;
 
 statement
